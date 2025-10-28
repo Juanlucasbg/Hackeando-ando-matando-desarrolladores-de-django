@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Google Maps styles */
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.map-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.control-button {
+  @apply bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-2 flex items-center justify-center text-gray-700 hover:text-google-blue border border-gray-200 hover:border-google-blue;
+}
+
+.control-button:active {
+  @apply scale-95;
+}
+
+.control-button.active {
+  @apply bg-google-blue text-white border-google-blue;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  @apply animate-spin rounded-full border-4 border-gray-200 border-t-google-blue;
+}
+
+/* Error state styles */
+.error-message {
+  @apply bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg;
+}
+
+/* Map type selector */
+.map-type-selector {
+  @apply bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden;
+}
+
+.map-type-option {
+  @apply px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer transition-colors;
+}
+
+.map-type-option.active {
+  @apply bg-google-blue text-white;
+}
+
+/* Street view toggle */
+.street-view-toggle {
+  @apply bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 px-3 py-2 text-sm font-medium text-gray-700 hover:text-google-blue border border-gray-200 hover:border-google-blue;
+}
+
+/* Fullscreen button */
+.fullscreen-button {
+  @apply bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-2 flex items-center justify-center text-gray-700 hover:text-google-blue border border-gray-200 hover:border-google-blue;
+}
+
+/* Compass control */
+.compass-control {
+  @apply bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-3 flex items-center justify-center text-gray-700 hover:text-google-blue border border-gray-200 hover:border-google-blue;
+}
+
+.compass-needle {
+  @apply transition-transform duration-300 ease-in-out;
+}
+
+/* Coordinate input styles */
+.coordinate-input {
+  @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-google-blue focus:border-transparent;
+}
+
+.coordinate-input:invalid {
+  @apply border-red-300 focus:ring-red-500;
+}
+
+/* Search results styles */
+.search-results {
+  @apply absolute top-full left-0 right-0 bg-white rounded-lg shadow-lg border border-gray-200 mt-1 max-h-60 overflow-y-auto z-50;
+}
+
+.search-result-item {
+  @apply px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0 transition-colors;
+}
+
+.search-result-item:last-child {
+  @apply border-b-0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .map-controls {
+    @apply top-5 right-5 gap-2;
+  }
+
+  .control-button {
+    @apply p-2;
+  }
+}

@@ -1,0 +1,49 @@
+# Lighthouse CI configuration
+ci:
+  collect:
+    # Number of runs for each URL
+    numberOfRuns: 3
+    # Start server before running Lighthouse
+    startServerCommand: 'npm run preview'
+    startServerReadyPattern: 'Local:'
+    # Wait for server to be ready
+    startServerReadyTimeout: 30000
+    # URL to test
+    url:
+      - http://localhost:4173
+      - http://localhost:4173/search
+      - http://localhost:4173/street-view
+    # Additional collect settings
+    settings:
+      chromeFlags: '--no-sandbox --headless --disable-gpu'
+      # Only audit categories we care about
+      onlyCategories: ['performance', 'accessibility', 'best-practices', 'seo']
+      # Skip audits that aren't relevant
+      skipAudits: ['is-on-https', 'uses-http2', 'uses-text-compression']
+  assert:
+    # Performance assertions
+    assertions:
+      'categories:performance': ['warn', { minScore: 0.8 }]
+      'categories:accessibility': ['error', { minScore: 0.9 }]
+      'categories:best-practices': ['warn', { minScore: 0.8 }]
+      'categories:seo': ['warn', { minScore: 0.8 }]
+      # Specific performance metrics
+      'first-contentful-paint': ['warn', { maxNumericValue: 2000 }]
+      'largest-contentful-paint': ['warn', { maxNumericValue: 2500 }]
+      'cumulative-layout-shift': ['warn', { maxNumericValue: 0.1 }]
+      'total-blocking-time': ['warn', { maxNumericValue: 300 }]
+      'speed-index': ['warn', { maxNumericValue: 3400 }]
+      # Accessibility specific
+      'meta-viewport': 'error'
+      'html-has-lang': 'error'
+      'image-alt': 'warn'
+      'label': 'warn'
+  upload:
+    # Upload to temporary storage
+    target: 'temporary-public-storage'
+    # GitHub App token for upload
+    githubAppToken: '${LHCI_GITHUB_APP_TOKEN}'
+    # Build context
+    basicAuth:
+      username: '${LHCI_BASIC_AUTH_USERNAME}'
+      password: '${LHCI_BASIC_AUTH_PASSWORD}'
