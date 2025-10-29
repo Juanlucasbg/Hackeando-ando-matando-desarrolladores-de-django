@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { SearchBar } from '../SearchBar'
+import { vi } from 'vitest'
+import { SearchBar } from '../../search'
 import { locations, searchSuggestions } from '@/test/fixtures'
 
 // Mock the search store
