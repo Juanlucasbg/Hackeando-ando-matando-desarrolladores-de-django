@@ -1,0 +1,82 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Path mapping */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@services/*": ["src/services/*"],
+      "@stores/*": ["src/stores/*"],
+      "@types/*": ["src/types/*"],
+      "@utils/*": ["src/utils/*"],
+      "@assets/*": ["src/assets/*"]
+    },
+
+    /* Additional strict checks */
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    /* Module system */
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Declaration and source maps */
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+
+    /* Advanced options */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "removeComments": false,
+    "importHelpers": true,
+
+    /* Type definitions */
+    "types": ["vite/client", "google.maps", "node"]
+  },
+  "include": [
+    "src/**/*",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "vite.config.ts",
+    "vitest.config.ts",
+    "playwright.config.ts",
+    "storybook/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    "test-results",
+    "playwright-report",
+    ".storybook"
+  ],
+  "references": [
+    { "path": "./tsconfig.node.json" }
+  ]
+}

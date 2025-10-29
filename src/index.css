@@ -1,0 +1,241 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Basic styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Custom map styles */
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.map-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.control-button {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.control-button:hover {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.control-button:active {
+  transform: scale(0.95);
+}
+
+.control-button.active {
+  background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  animation: spin 1s linear infinite;
+  border-radius: 50%;
+  border: 4px solid #e5e7eb;
+  border-top-color: #3b82f6;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error state styles */
+.error-message {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+
+/* Map type selector */
+.map-type-selector {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d1d5db;
+  overflow: hidden;
+}
+
+.map-type-option {
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.map-type-option:hover {
+  background-color: #f9fafb;
+}
+
+.map-type-option.active {
+  background-color: #3b82f6;
+  color: white;
+}
+
+/* Street view toggle */
+.street-view-toggle {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.street-view-toggle:hover {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+/* Fullscreen button */
+.fullscreen-button {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.fullscreen-button:hover {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+/* Compass control */
+.compass-control {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.compass-control:hover {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.compass-needle {
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Coordinate input styles */
+.coordinate-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.coordinate-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.coordinate-input:invalid {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Search results styles */
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d1d5db;
+  margin-top: 4px;
+  max-height: 240px;
+  overflow-y: auto;
+  z-index: 50;
+}
+
+.search-result-item {
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background-color 0.2s ease;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background-color: #f9fafb;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .map-controls {
+    top: 20px;
+    right: 20px;
+    gap: 8px;
+  }
+
+  .control-button {
+    padding: 8px;
+  }
+}
