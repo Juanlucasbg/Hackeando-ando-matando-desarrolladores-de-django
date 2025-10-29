@@ -1,3 +1,6 @@
+// Waze Components (NEW)
+export { default as WazeMapContainer } from './WazeMapContainer/WazeMapContainer';
+
 // Component exports for clean imports
 export * from './ui';
 export * from './map';

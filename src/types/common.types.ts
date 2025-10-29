@@ -7,10 +7,40 @@ export interface Location {
   formattedAddress?: string;
 }
 
+export interface GeocodeResult {
+  lat: number;
+  lng: number;
+  formattedAddress: string;
+  placeId?: string;
+  addressComponents?: any[];
+  address?: string;
+}
+
 export interface Coordinate {
   lat: number;
   lng: number;
 }
+
+// Alias for Coordinate (used interchangeably)
+export type Coordinates = Coordinate;
+
+// Marker types
+export interface Marker {
+  id?: string;
+  position: Location;
+  title: string;
+  description?: string;
+  icon?: string | any;
+  animation?: any;
+  draggable?: boolean;
+  clickable?: boolean;
+  opacity?: number;
+  zIndex?: number;
+  info?: string;
+}
+
+// Alias for Marker (used interchangeably)
+export type MapMarker = Marker;
 
 // Map related types
 export interface MapBounds {
@@ -81,6 +111,16 @@ export interface BaseComponentProps {
   className?: string;
   children?: React.ReactNode;
   'data-testid'?: string;
+}
+
+// Map Container props
+export interface MapContainerProps extends BaseComponentProps {
+  center?: Location;
+  zoom?: number;
+  markers?: MapMarker[];
+  onMapClick?: (event: any) => void;
+  onMarkerClick?: (marker: MapMarker) => void;
+  style?: React.CSSProperties;
 }
 
 export interface ModalProps extends BaseComponentProps {

@@ -13,6 +13,7 @@ const AnalyticsScreen = React.lazy(() => import('./screens/AnalyticsScreen'));
 const SettingsScreen = React.lazy(() => import('./screens/SettingsScreen'));
 const ProfileScreen = React.lazy(() => import('./screens/ProfileScreen'));
 const EmergencyScreen = React.lazy(() => import('./screens/EmergencyScreen'));
+const WazeDemoPage = React.lazy(() => import('./pages/WazeDemoPage'));
 const NotFoundScreen = React.lazy(() => import('./screens/NotFoundScreen'));
 
 // App layout component
@@ -55,6 +56,7 @@ function App() {
               <Route path="settings" element={<SettingsScreen />} />
               <Route path="profile" element={<ProfileScreen />} />
               <Route path="emergency" element={<EmergencyScreen />} />
+              <Route path="waze-demo" element={<WazeDemoPage />} />
               <Route path="*" element={<NotFoundScreen />} />
             </Route>
           </Routes>

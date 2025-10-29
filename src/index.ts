@@ -82,6 +82,11 @@ if (import.meta.env.DEV) {
   import('./utils/performance').then(({ performanceObserver }) => {
     performanceObserver();
   });
+
+  // Waze API testing utilities
+  import('./utils/testWazeApi').then(({ runWazeTests }) => {
+    runWazeTests();
+  });
 }
 
 // Application initialization
