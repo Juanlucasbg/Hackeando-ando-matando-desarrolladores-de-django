@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
-import { MapControls } from '../MapControls/MapControls';
+import { MapControls } from '../map';
 import { MapControlsProps } from '../../types';
 
 // Mock Google Maps

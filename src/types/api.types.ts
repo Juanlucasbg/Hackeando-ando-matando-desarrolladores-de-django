@@ -51,7 +51,74 @@ export interface ApiError {
   isAxiosError?: boolean;
 }
 
-// Google Maps API wrapper types
+// Waze API configuration types
+export interface WazeConfig {
+  apiKey: string;
+  baseUrl?: string;
+  language?: string;
+  region?: string;
+  timeout?: number;
+}
+
+// Map service configuration (unified interface)
+export interface MapServiceConfig {
+  apiKey: string;
+  baseUrl?: string;
+  version?: string;
+  language?: string;
+  region?: string;
+  libraries?: string[];
+  timeout?: number;
+}
+
+export interface WazeRouteRequest {
+  from: {
+    x: number; // longitude
+    y: number; // latitude
+  };
+  to: {
+    x: number; // longitude
+    y: number; // latitude
+  };
+  options?: {
+    avoidTolls?: boolean;
+    avoidHighways?: boolean;
+    avoidFerries?: boolean;
+    vehicleType?: string;
+  };
+}
+
+export interface WazeRouteResponse {
+  response: {
+    results: Array<{
+      distance: number;
+      duration: number;
+      path: Array<{
+        x: number;
+        y: number;
+      }>;
+      restrictions?: string[];
+      tolls?: boolean;
+      highways?: boolean;
+    }>;
+  };
+}
+
+export interface WazeLocationResponse {
+  response: {
+    results: Array<{
+      lat: number;
+      lon: number;
+      name: string;
+      city?: string;
+      state?: string;
+      country?: string;
+      address?: string;
+    }>;
+  };
+}
+
+// Google Maps API wrapper types (kept for backward compatibility)
 export interface GoogleMapsConfig {
   apiKey: string;
   version?: string;

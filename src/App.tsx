@@ -1,270 +1,67 @@
-import React from 'react';
+import React, { Suspense } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { useThemeStore } from './stores/themeStore';
+import { useOfflineDetection } from './hooks/useOfflineDetection';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { LoadingSpinner } from './components/ui/LoadingSpinner';
+import { OfflineBanner } from './components/ui/OfflineBanner';
+
+// Lazy load components for code splitting
+const HomeScreen = React.lazy(() => import('./screens/HomeScreen'));
+const RoutePlanningScreen = React.lazy(() => import('./screens/RoutePlanningScreen'));
+const AnalyticsScreen = React.lazy(() => import('./screens/AnalyticsScreen'));
+const SettingsScreen = React.lazy(() => import('./screens/SettingsScreen'));
+const ProfileScreen = React.lazy(() => import('./screens/ProfileScreen'));
+const EmergencyScreen = React.lazy(() => import('./screens/EmergencyScreen'));
+const WazeDemoPage = React.lazy(() => import('./pages/WazeDemoPage'));
+const NotFoundScreen = React.lazy(() => import('./screens/NotFoundScreen'));
+
+// App layout component
+import AppLayout from './components/layout/AppLayout';
 
 function App() {
+  const { theme } = useThemeStore();
+  const isOnline = useOfflineDetection();
+
+  // Apply theme to document
+  React.useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else if (theme === 'light') {
+      document.documentElement.classList.remove('dark');
+    } else {
+      // System theme
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.classList.toggle('dark', prefersDark);
+    }
+  }, [theme]);
+
   return (
-    <div style={{
-      minHeight: '100vh',
-      backgroundColor: '#f9fafb',
-      fontFamily: 'system-ui, -apple-system, sans-serif'
-    }}>
-      <header style={{
-        backgroundColor: 'white',
-        borderBottom: '1px solid #e5e7eb',
-        padding: '16px 24px',
-        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
-      }}>
-        <div style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between'
-        }}>
-          <h1 style={{
-            fontSize: '24px',
-            fontWeight: 'bold',
-            color: '#1f2937',
-            margin: 0
-          }}>
-            Google Maps Clone
-          </h1>
-          <div style={{
-            display: 'flex',
-            gap: '12px',
-            alignItems: 'center'
-          }}>
-            <button style={{
-              padding: '8px 16px',
-              backgroundColor: '#3b82f6',
-              color: 'white',
-              border: 'none',
-              borderRadius: '6px',
-              cursor: 'pointer',
-              fontSize: '14px'
-            }}>
-              Sign In
-            </button>
-          </div>
-        </div>
-      </header>
+    <div className={`min-h-screen bg-background text-foreground ${theme}`}>
+      <ErrorBoundary>
+        {!isOnline && <OfflineBanner />}
 
-      <main style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '24px'
-      }}>
-        <div style={{
-          backgroundColor: 'white',
-          borderRadius: '8px',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-          overflow: 'hidden',
-          height: '600px',
-          position: 'relative'
-        }}>
-          <div style={{
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column',
-            backgroundColor: '#f3f4f6',
-            color: '#6b7280'
-          }}>
-            <div style={{
-              fontSize: '48px',
-              marginBottom: '16px'
-            }}>
-              🗺️
+        <Suspense
+          fallback={
+            <div className="min-h-screen flex items-center justify-center">
+              <LoadingSpinner size="lg" />
             </div>
-            <h2 style={{
-              fontSize: '20px',
-              fontWeight: '600',
-              marginBottom: '8px',
-              color: '#374151'
-            }}>
-              Google Maps Clone
-            </h2>
-            <p style={{
-              fontSize: '16px',
-              marginBottom: '24px',
-              textAlign: 'center',
-              maxWidth: '400px'
-            }}>
-              A modern Google Maps clone built with React, TypeScript, and Google Maps API.
-            </p>
-            <div style={{
-              display: 'flex',
-              gap: '12px',
-              flexWrap: 'wrap',
-              justifyContent: 'center'
-            }}>
-              <button style={{
-                padding: '10px 20px',
-                backgroundColor: '#3b82f6',
-                color: 'white',
-                border: 'none',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                fontSize: '14px'
-              }}>
-                📍 Get Current Location
-              </button>
-              <button style={{
-                padding: '10px 20px',
-                backgroundColor: '#10b981',
-                color: 'white',
-                border: 'none',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                fontSize: '14px'
-              }}>
-                🔍 Search Places
-              </button>
-              <button style={{
-                padding: '10px 20px',
-                backgroundColor: '#f59e0b',
-                color: 'white',
-                border: 'none',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                fontSize: '14px'
-              }}>
-                🚗 Plan Route
-              </button>
-            </div>
-            <div style={{
-              marginTop: '32px',
-              padding: '16px',
-              backgroundColor: 'white',
-              borderRadius: '6px',
-              border: '1px solid #e5e7eb'
-            }}>
-              <h3 style={{
-                fontSize: '16px',
-                fontWeight: '600',
-                marginBottom: '8px',
-                color: '#374151'
-              }}>
-                🚧 Application Setup Required
-              </h3>
-              <p style={{
-                fontSize: '14px',
-                color: '#6b7280',
-                marginBottom: '16px'
-              }}>
-                To enable full functionality:
-              </p>
-              <ol style={{
-                fontSize: '14px',
-                color: '#6b7280',
-                paddingLeft: '20px',
-                margin: 0
-              }}>
-                <li style={{ marginBottom: '8px' }}>
-                  Add your Google Maps API key to <code style={{ backgroundColor: '#f3f4f6', padding: '2px 6px', borderRadius: '3px' }}>REACT_APP_GOOGLE_MAPS_API_KEY</code>
-                </li>
-                <li style={{ marginBottom: '8px' }}>
-                  Enable Maps JavaScript API, Places API, and Geocoding API in Google Cloud Console
-                </li>
-                <li style={{ marginBottom: '8px' }}>
-                  Restart the development server
-                </li>
-              </ol>
-            </div>
-          </div>
-        </div>
-
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '24px',
-          marginTop: '32px'
-        }}>
-          <div style={{
-            backgroundColor: 'white',
-            padding: '24px',
-            borderRadius: '8px',
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-          }}>
-            <h3 style={{
-              fontSize: '18px',
-              fontWeight: '600',
-              marginBottom: '12px',
-              color: '#1f2937'
-            }}>
-              🗺️ Interactive Maps
-            </h3>
-            <p style={{
-              color: '#6b7280',
-              lineHeight: '1.6'
-            }}>
-              Explore the world with interactive maps featuring zoom, pan, and multiple map types including satellite, terrain, and street view.
-            </p>
-          </div>
-
-          <div style={{
-            backgroundColor: 'white',
-            padding: '24px',
-            borderRadius: '8px',
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-          }}>
-            <h3 style={{
-              fontSize: '18px',
-              fontWeight: '600',
-              marginBottom: '12px',
-              color: '#1f2937'
-            }}>
-              🔍 Smart Search
-            </h3>
-            <p style={{
-              color: '#6b7280',
-              lineHeight: '1.6'
-            }}>
-              Find places quickly with intelligent autocomplete, search history, and support for addresses, coordinates, and points of interest.
-            </p>
-          </div>
-
-          <div style={{
-            backgroundColor: 'white',
-            padding: '24px',
-            borderRadius: '8px',
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-          }}>
-            <h3 style={{
-              fontSize: '18px',
-              fontWeight: '600',
-              marginBottom: '12px',
-              color: '#1f2937'
-            }}>
-              🚗 Route Planning
-            </h3>
-            <p style={{
-              color: '#6b7280',
-              lineHeight: '1.6'
-            }}>
-              Plan routes with multiple stops, real-time traffic updates, and support for driving, walking, cycling, and public transit.
-            </p>
-          </div>
-        </div>
-      </main>
-
-      <footer style={{
-        backgroundColor: 'white',
-        borderTop: '1px solid #e5e7eb',
-        padding: '24px',
-        marginTop: '48px'
-      }}>
-        <div style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          textAlign: 'center',
-          color: '#6b7280'
-        }}>
-          <p style={{ margin: 0 }}>
-            Built with React, TypeScript, and Google Maps API
-          </p>
-        </div>
-      </footer>
+          }
+        >
+          <Routes>
+            <Route path="/" element={<AppLayout />}>
+              <Route index element={<HomeScreen />} />
+              <Route path="route" element={<RoutePlanningScreen />} />
+              <Route path="analytics" element={<AnalyticsScreen />} />
+              <Route path="settings" element={<SettingsScreen />} />
+              <Route path="profile" element={<ProfileScreen />} />
+              <Route path="emergency" element={<EmergencyScreen />} />
+              <Route path="waze-demo" element={<WazeDemoPage />} />
+              <Route path="*" element={<NotFoundScreen />} />
+            </Route>
+          </Routes>
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 }

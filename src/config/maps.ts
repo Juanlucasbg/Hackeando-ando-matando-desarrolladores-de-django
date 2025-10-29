@@ -1,11 +1,10 @@
-// Google Maps configuration
-export const GOOGLE_MAPS_CONFIG = {
-  apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '',
-  version: 'weekly',
+// Waze API configuration
+export const WAZE_API_CONFIG = {
+  apiKey: process.env.REACT_APP_WAZE_API_KEY || '34eb67fbcbmshaacbf8071455e49p16c350jsn9723b6d54d91',
+  baseUrl: 'https://waze-api.p.rapidapi.com',
   language: 'en',
   region: 'US',
-  libraries: ['places', 'geometry', 'drawing'] as const,
-  loading: 'async' as const,
+  timeout: 10000,
 };
 
 // Map styling configuration
